@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kampus Hijau Interaktif - UNISDA (Prototype)</title>
+  <link rel="icon" href="/assets/favicon-32x32.png" type="image/x-icon">
+  <!-- Chart.js & jsPDF -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <img src="assets/img/Logo-Unisda-3-1.png" alt="Logo UNISDA" class="logo-img" />
+      <div>
+        <div class="title">Kampus Hijau Interaktif</div>
+        <div class="subtitle">UNISDA - Edukasi & Partisipasi Lingkungan</div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="#home">Beranda</a>
+      <a href="#edukasi">Edukasi</a>
+      <a href="#simulasi">Simulasi</a>
+      <a href="#aksi">Aksi Hijau</a>
+      <a href="#peringkat">Peringkat</a>
+      <a href="#kuis">Kuis</a>
+      <a href="#profil">Profil</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Home -->
+    <section id="home" class="page">
+      <h1>Selamat Datang di Kampus Hijau UNISDA</h1>
+      <p>Platform partisipatif untuk menjaga lingkungan kampus: laporkan aksi hijau, coba simulasi penghematan, ikuti kuis, dan kumpulkan poin untuk sertifikat.</p>
+      <div class="hero-cards">
+        <div class="card">
+          <h3>Poin Anda</h3>
+          <div class="big" id="userPoints">0</div>
+          <div class="small">Total poin kontribusi lingkungan</div>
+        </div>
+        <div class="card">
+          <h3>Leaderboard</h3>
+          <canvas id="leaderChart" width="700" height="300"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Edukasi -->
+    <section id="edukasi" class="page" style="display:none">
+      <h2>Edukasi Kampus Hijau</h2>
+      <div class="card">
+        <h4>Konsep Dasar</h4>
+        <p>Penghematan energi, pengurangan limbah plastik, penghijauan, dan transportasi ramah lingkungan.</p>
+      </div>
+      <div class="card">
+        <h4>Cara Sederhana Berkontribusi</h4>
+        <ul>
+          <li>Menggunakan tumbler</li>
+          <li>Menghemat listrik di laboratorium</li>
+          <li>Berangkat ke kampus dengan sepeda</li>
+          <li>Ikut aksi bersih-bersih</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Simulasi -->
+    <section id="simulasi" class="page" style="display:none">
+      <h2>Simulasi Penghematan Emisi</h2>
+      <div class="card">
+        <label>Jarak pulang-pergi ke kampus (km per hari): <input type="number" id="dist" value="10" min="0"></label>
+        <label>Moda transportasi:
+          <select id="transport">
+            <option value="motor">Motor (1.8 kg CO2/hari)</option>
+            <option value="mobil">Mobil (3.5 kg CO2/hari)</option>
+            <option value="bike">Sepeda (0 kg CO2/hari)</option>
+            <option value="walk">Jalan Kaki (0 kg CO2/hari)</option>
+            <option value="public">Angkutan Umum (0.7 kg CO2/hari)</option>
+          </select>
+        </label>
+        <label>Konsumsi harian:
+          <select id="consumption">
+            <option value="plastik">Botol plastik sekali pakai (dampak kecil)</option>
+            <option value="tumbler">Tumbler / isi ulang (lebih ramah)</option>
+          </select>
+        </label>
+        <div class="controls">
+          <button id="runSim" class="btn">Hitung Dampak & Tambah Poin</button>
+          <button id="resetSim" class="btn ghost">Reset Simulasi</button>
+        </div>
+        <div id="simResult" class="small" style="margin-top:10px"></div>
+
+        <div class="progress-plant" style="margin-top:14px">
+          <div class="small">Progress Poin menuju Sertifikat (100 poin)</div>
+          <div class="bar"><i id="pointsBar"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Aksi Hijau (laporan) -->
+    <section id="aksi" class="page" style="display:none">
+      <h2>Lapor Aksi Hijau</h2>
+      <div class="card">
+        <form id="reportForm">
+          <label>Jenis Aksi:
+            <select id="actionType">
+              <option value="tanam">Menanam Pohon (50 poin)</option>
+              <option value="bersih">Bersih-bersih (20 poin)</option>
+              <option value="tumbler">Menggunakan Tumbler (5 poin)</option>
+              <option value="hemat">Menghemat Listrik (10 poin)</option>
+            </select>
+          </label>
+          <label>Deskripsi (opsional): <input type="text" id="actionDesc" placeholder="Contoh: Menanam pohon di area X"></label>
+          <label>Bukti (URL/Gambar): <input type="text" id="actionProof" placeholder="Link foto atau catatan"></label>
+          <button type="submit" class="btn">Kirim Laporan</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h4>Riwayat Laporan Anda</h4>
+        <div id="reportList" class="small"></div>
+      </div>
+    </section>
+
+    <!-- Peringkat -->
+    <section id="peringkat" class="page" style="display:none">
+      <h2>Papan Peringkat Kontribusi</h2>
+      <div class="card">
+        <table id="leaderTable">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Prodi</th>
+              <th>Poin</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Kuis -->
+<section id="kuis" class="page" style="display:none">
+  <h2>Kuis Kampus Hijau</h2>
+  <div class="card">
+    <div id="quizContainer" class="quiz-content">
+      <p>Klik tombol di bawah untuk memulai kuis.</p>
+    </div>
+
+    <div class="quiz-controls" style="margin-top:12px;">
+      <button id="startQuiz" class="btn">Mulai Kuis</button>
+      <button id="nextQuestion" class="btn" style="display:none;">Soal Berikutnya</button>
+      <button id="resetQuiz" class="btn btn-reset" style="background:#c62828;display:none;">
+        Reset Nilai
+      </button>
+    </div>
+
+    <p id="quizResult" style="margin-top:12px;font-weight:600;color:#2b7a4b;"></p>
+  </div>
+</section>
+
+
+
+    <!-- Profil & Sertifikat -->
+    <section id="profil" class="page" style="display:none">
+      <h2>Profil & Sertifikat</h2>
+      <div class="card">
+        <form id="profileForm">
+          <label>Nama: <input id="name" required></label>
+          <label>NIM: <input id="nim" required></label>
+          <label>Prodi: <input id="prodi"></label>
+          <button type="submit" class="btn">Simpan Profil</button>
+        </form>
+      </div>
+      <div class="card">
+        <h4>Status Kontribusi</h4>
+        <div class="small">Total Poin: <span id="totalPoints">0</span></div>
+        <div style="margin-top:12px"><button id="downloadCert" class="btn" >Unduh Sertifikat (PDF)</button></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2025 Universitas Islam Darul 'Ulum - Kampus Hijau Interaktif
+  </footer>
+
+  
+  <script src="js/navigation.js"></script>
+  <script src="js/points.js"></script>
+  <script src="js/simulasi.js"></script>
+  <script src="js/laporan.js"></script>
+  <script src="js/leaderboard.js"></script>
+  <script src="js/profile_cert.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

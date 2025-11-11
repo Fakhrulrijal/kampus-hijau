@@ -1,0 +1,392 @@
+:root {
+    --bg: #f6fbf6;
+    --card: #ffffff;
+    --accent: #2ecc71;
+    --muted: #5a6b6b;
+    --primary: #2b7a4b
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    font-family: Inter, system-ui, Arial, sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: #153;
+}
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 28px;
+    background: linear-gradient(90deg, #ffffff, #f1f8f1);
+    border-bottom: 1px solid #e8f2ea
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, var(--accent), #26a65b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px
+}
+
+.title {
+    font-weight: 800
+}
+
+.subtitle {
+    font-size: 12px;
+    color: var(--muted)
+}
+
+.main-nav a {
+    margin-left: 14px;
+    text-decoration: none;
+    color: #234;
+    font-weight: 600
+}
+
+.container {
+    max-width: 1100px;
+    margin: 22px auto;
+    padding: 0 18px
+}
+
+.page {
+    margin-bottom: 18px
+}
+
+.hero-cards {
+    display: flex;
+    gap: 16px
+}
+
+.card {
+    background: var(--card);
+    padding: 14px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(10, 20, 10, 0.04)
+}
+
+.big {
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--accent)
+}
+
+.small {
+    font-size: 13px;
+    color: var(--muted)
+}
+
+.btn {
+    background: var(--primary);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700
+}
+
+.btn:disabled {
+    background: #ccc;
+    /* abu-abu */
+    color: #666;
+    /* teks lebih gelap */
+    cursor: not-allowed;
+    /* kursor tanda tidak bisa klik */
+    border: 1px solid #aaa;
+    /* opsional: border lebih netral */
+}
+
+.btn.ghost {
+    background: transparent;
+    border: 1px solid #ccc;
+    color: #333
+}
+
+.btn-small {
+    font-size: 10px;
+    padding: 2px 6px;
+    margin-left: 8px;
+    border-radius: 4px;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+}
+/*reset nilai kuis*/
+.btn-reset {
+  background-color: #d32f2f !important;
+  color: #fff !important;
+}
+.btn-reset:hover {
+  background-color: #b71c1c !important;
+}
+
+
+/* === Form input sejajar, rapi, dan proporsional === */
+.card label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.card label input,
+.card label select {
+    width: 55%;
+    /* batasi lebar input agar tidak terlalu panjang */
+    padding: 6px 8px;
+    border: 1px solid #c8e6c9;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #f8fff8;
+    color: #153;
+    text-align: left;
+    /* biar teks mulai dari kiri */
+}
+
+
+.card label input:focus,
+.card label select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 3px rgba(46, 204, 113, 0.4);
+}
+
+/* ==============================
+   Tabel Leaderboard Modern
+============================== */
+#peringkat .card {
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow-x: auto;
+}
+
+#leaderTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Arial", sans-serif;
+  min-width: 300px; /* agar tetap responsif */
+}
+
+#leaderTable th, #leaderTable td {
+  border: 3px solid #ddd;
+  padding: 10px 25px;
+  text-align: center;
+}
+
+#leaderTable th {
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+#leaderTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#leaderTable tr:nth-child(1) td {
+  font-weight: bold;
+  background-color: #d4efdf; /* highlight user "Anda" */
+}
+
+#leaderTable tr:hover {
+  background-color: #d0f0c0;
+}
+
+#leaderTable td {
+  font-size: 14px;
+}
+
+
+/* Responsif: jika layar kecil, biar tetap nyaman dibaca */
+@media (max-width: 768px) {
+    .card label {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .card label input,
+    .card label select {
+        width: 100%;
+    }
+}
+
+
+.progress-plant .bar {
+    height: 12px;
+    background: #e9f3ea;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 6px
+}
+
+.progress-plant .bar i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #9ee6a8);
+    width: 0
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse
+}
+
+th,
+td {
+    padding: 8px;
+    border-bottom: 1px solid #eef6ee
+}
+
+.site-footer {
+    padding: 18px;
+    text-align: center;
+    color: var(--muted);
+    margin-top: 28px
+}
+
+/* --- Animasi Transisi Halaman --- */
+.page {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.page.active {
+    opacity: 1;
+    display: block !important;
+}
+
+/* --- Highlight Menu Aktif --- */
+.main-nav a {
+    margin-left: 14px;
+    text-decoration: none;
+    color: #234;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+
+/* efek hover */
+.main-nav a:hover {
+    background: #e8f6eb;
+    color: var(--primary);
+}
+
+/* menu aktif dengan latar kotak */
+.main-nav a.active {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 6px;
+    /* bentuk kotak lembut, bukan bulat */
+}
+/* === FIX RATA KIRI OPSI KUIS (FINAL) === */
+#quizContainer .options {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px; /* jarak antar baris lebih rapat */
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+#quizContainer .quiz-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px; /* jarak radio dan teks */
+  width: auto; /* tidak full lebar */
+  padding: 2px 4px; /* padding kecil biar rapi */
+  background: transparent; /* tanpa blok warna */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#quizContainer .quiz-option:hover {
+  background: #e8f6e8;
+}
+
+#quizContainer .quiz-option input[type="radio"] {
+  margin: 0;
+  transform: scale(1.1);
+  accent-color: #2b7a4b;
+}
+
+#quizContainer .quiz-option span {
+  text-align: left;
+  line-height: 1.3;
+}
+/* === Override khusus untuk halaman Kuis === */
+#kuis .card label input,
+#kuis .card label select {
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+
+
+
+
+
+@media(max-width:900px) {
+    .hero-cards {
+        flex-direction: column
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .subtitle {
+        font-size: 11px;
+    }
+}
