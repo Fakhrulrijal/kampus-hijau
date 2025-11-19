@@ -105,18 +105,33 @@
       <h2>Lapor Aksi Hijau</h2>
       <div class="card">
         <form id="reportForm">
-          <label>Jenis Aksi:
-            <select id="actionType">
-              <option value="tanam">Menanam Pohon (50 poin)</option>
-              <option value="bersih">Bersih-bersih (20 poin)</option>
-              <option value="tumbler">Menggunakan Tumbler (5 poin)</option>
-              <option value="hemat">Menghemat Listrik (10 poin)</option>
-            </select>
-          </label>
-          <label>Deskripsi (opsional): <input type="text" id="actionDesc" placeholder="Contoh: Menanam pohon di area X"></label>
-          <label>Bukti (URL/Gambar): <input type="text" id="actionProof" placeholder="Link foto atau catatan"></label>
-          <button type="submit" class="btn">Kirim Laporan</button>
-        </form>
+  <label>Aksi:
+    <select id="actionType" required>
+      <option value="tanam">Menanam Pohon</option>
+      <option value="bersih">Membersihkan Lingkungan</option>
+      <option value="tumbler">Menggunakan Tumbler</option>
+      <option value="hemat">Menghemat Energi</option>
+    </select>
+  </label>
+
+  <label>Deskripsi — wajib:
+    <textarea id="actionDesc" required placeholder="Jelaskan tindakanmu"></textarea>
+  </label>
+
+  <label>Upload Foto Bukti — wajib:
+    <input type="file" id="actionImage" accept="image/*" required>
+  </label>
+
+  <img id="previewImage"
+       style="display:none;width:120px;margin-top:10px;border-radius:8px;border:1px solid #ccc;">
+
+  <button type="submit" class="btn btn-primary">Kirim Laporan</button>
+</form>
+
+<hr>
+
+<div id="reportList"></div>
+
       </div>
 
       <div class="card">
@@ -130,7 +145,13 @@
       <h2>Papan Peringkat Kontribusi</h2>
       <div class="card">
         <table id="leaderTable">
-          <thead><tr><th>Nama</th><th>Poin</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Prodi</th>
+              <th>Poin</th>
+            </tr>
+          </thead>
           <tbody></tbody>
         </table>
       </div>
