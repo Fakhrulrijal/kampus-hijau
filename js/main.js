@@ -1,6 +1,7 @@
 // =====================
 // File Utama: main.js
 // =====================
+
 document.addEventListener("DOMContentLoaded", () => {
   // Pastikan semua elemen utama sudah siap
   updatePointsDisplay("total");
@@ -30,10 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
+  document.getElementById("menu-toggle").onclick = function () {
+    document.getElementById("main-nav").classList.toggle("show");
+  };
   // Efek transisi halaman (fade-in) langsung aktif
   const allPages = document.querySelectorAll(".page");
-  allPages.forEach(page => {
+  allPages.forEach((page) => {
     page.style.transition = "opacity 0.4s ease";
   });
 
